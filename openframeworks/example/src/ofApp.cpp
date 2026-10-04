@@ -12,9 +12,11 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-    cam.begin();
 	ofBackground(0);
+	cam.begin();
+	ofEnableDepthTest();
 	latk.run();
+	ofDisableDepthTest();
 	cam.end();
 }
 
