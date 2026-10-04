@@ -84,10 +84,12 @@ void ofApp::draw() {
 			break;
 		case LINES:
 			cam.begin();
+			ofEnableDepthTest();
 			// LatkStroke::draw() calls ofNoFill() and leaves it. Restore the style afterwards.
 			ofPushStyle();
 			for (auto & layer : latk.layers) layer.run();
 			ofPopStyle();
+			ofDisableDepthTest();
 			cam.end();
 			mode = "original lines";
 			break;

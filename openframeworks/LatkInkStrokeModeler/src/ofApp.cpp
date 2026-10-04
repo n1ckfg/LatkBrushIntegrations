@@ -75,11 +75,13 @@ void ofApp::draw() {
 			+ ofToString(stats.totalMs, 1) + " ms: " + ofToString(stats.inputs) + " points -> " + ofToString(stats.results);
 	} else {
 		cam.begin();
+		ofEnableDepthTest();
 		// LatkStroke::draw() calls ofNoFill(), which would leave the ink
 		// outlined. Restore the style afterwards.
 		ofPushStyle();
 		for (auto & layer : latk.layers) layer.run();
 		ofPopStyle();
+		ofDisableDepthTest();
 		cam.end();
 		mode = "lines";
 	}

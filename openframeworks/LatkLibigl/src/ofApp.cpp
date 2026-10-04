@@ -68,15 +68,14 @@ void ofApp::update() {
 void ofApp::draw() {
 	ofBackground(0);
 	cam.begin();
+	ofEnableDepthTest();
 	if (drawTubes) {
-		ofEnableDepthTest();
 		// The tubes are closed, so their insides never show.
 		glEnable(GL_CULL_FACE);
 		strokeShader.begin();
 		strokeMeshes.draw(latk);
 		strokeShader.end();
 		glDisable(GL_CULL_FACE);
-		ofDisableDepthTest();
 	} else {
 		// LatkStroke::draw() calls ofNoFill(), which sets glPolygonMode(GL_LINE)
 		// and would leave the tubes in wireframe. Restore the style afterwards.
@@ -84,6 +83,7 @@ void ofApp::draw() {
 		for (auto & layer : latk.layers) layer.run();
 		ofPopStyle();
 	}
+	ofDisableDepthTest();
 	cam.end();
 
 	const string mode = drawTubes ? "tubes, shader: " + strokeShader.getName() + " (s to change, r to reload)" : "lines";
